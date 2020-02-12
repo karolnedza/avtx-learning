@@ -90,7 +90,7 @@ def build_controller():
     table_backend = 'dynamodb_table='+str(s3_bucket)
 
     backend_configs = [bucket_backend, table_backend]
-    
+
     tf_base = Terraform(workdir_ctrl)
     #tf_base.init()
     tf_base.init(backend_config=backend_configs)
@@ -159,40 +159,40 @@ controller_outputs = build_controller()
 ctrl_ip = controller_outputs['controller_public_ip']['value']
 ctrl_passwd = controller_outputs['controller_admin_password']['value']
 
-################################################################################
-# Wait until controller is up and running. I need to improve it! It should use user/pass!
+# ################################################################################
+# # Wait until controller is up and running. I need to improve it! It should use user/pass!
+# #
+# # sleep = {backoff factor} * (2 ^ ({number of total retries} - 1)
+# # back_off= 1sec returns  sleep() for [0, 2, 4, 8, 16, 32, 64, 128...] sec
 #
-# sleep = {backoff factor} * (2 ^ ({number of total retries} - 1)
-# back_off= 1sec returns  sleep() for [0, 2, 4, 8, 16, 32, 64, 128...] sec
-
-try:
-    response = requests_retry_session().get('https://'+str(ctrl_ip), verify=False)
-except Exception as x:
-    print('Unable to connect to AVTX Controller', x.__class__.__name__)
-    exit()
-else:
-    print("Connected to Aviatrix Controller")
-
-
-###############################################################################
-# Build Network
-
-
-net_outputs = build_net()
-
-
-###############################################################################
-# I need to check with Jacob and others what output should be returned
+# try:
+#     response = requests_retry_session().get('https://'+str(ctrl_ip), verify=False)
+# except Exception as x:
+#     print('Unable to connect to AVTX Controller', x.__class__.__name__)
+#     exit()
+# else:
+#     print("Connected to Aviatrix Controller")
 #
-
-file = open("lab.txt", "w+")
-file.write("********************         EC2 Test Instances        *************************************"  + '\n''\n''\n')
-file.write("Region US-East-1 EC2 public IPs:   "  +   str(net_outputs['ec2_public_ip_us_east1']['value']) + '\n' )
-file.write("Region US-East-2 EC2 public IPs:   "  +   str(net_outputs['ec2_public_ip_us_east2']['value']) + '\n' )
-file.write("Region US-West-2 EC2 public IPs:   "  +   str(net_outputs['ec2_public_ip_us_west2']['value']) + '\n' '\n' '\n' )
-file.write("********************         Aviatrix Controller       *************************************"  + '\n''\n''\n')
-file.write("Aviatrix Controller public IP:   "  +   str(controller_outputs['controller_public_ip']['value']) + '\n' '\n' '\n' )
-file.write("*******************************************************************************************"  + '\n''\n' '\n')
-file.write("EC2 public key: " + link_to_s3 + '\n' '\n' '\n')
-file.write("*******************************************************************************************"  + '\n''\n' '\n')
-file.close()
+#
+# ###############################################################################
+# # Build Network
+#
+#
+# net_outputs = build_net()
+#
+#
+# ###############################################################################
+# # I need to check with Jacob and others what output should be returned
+# #
+#
+# file = open("lab.txt", "w+")
+# file.write("********************         EC2 Test Instances        *************************************"  + '\n''\n''\n')
+# file.write("Region US-East-1 EC2 public IPs:   "  +   str(net_outputs['ec2_public_ip_us_east1']['value']) + '\n' )
+# file.write("Region US-East-2 EC2 public IPs:   "  +   str(net_outputs['ec2_public_ip_us_east2']['value']) + '\n' )
+# file.write("Region US-West-2 EC2 public IPs:   "  +   str(net_outputs['ec2_public_ip_us_west2']['value']) + '\n' '\n' '\n' )
+# file.write("********************         Aviatrix Controller       *************************************"  + '\n''\n''\n')
+# file.write("Aviatrix Controller public IP:   "  +   str(controller_outputs['controller_public_ip']['value']) + '\n' '\n' '\n' )
+# file.write("*******************************************************************************************"  + '\n''\n' '\n')
+# file.write("EC2 public key: " + link_to_s3 + '\n' '\n' '\n')
+# file.write("*******************************************************************************************"  + '\n''\n' '\n')
+# file.close()

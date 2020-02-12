@@ -8,7 +8,7 @@ provider "aws" {
 }
 
 resource "aws_dynamodb_table" "terraform_statelock" {
-  name           = "${var.avtx_dynamodb_table}"
+  name           = var.avtx_dynamodb_table
   read_capacity  = 20
   write_capacity = 20
   hash_key       = "LockID"
@@ -22,7 +22,7 @@ resource "aws_dynamodb_table" "terraform_statelock" {
 
 resource "aws_s3_bucket" "avtx_controller_bucket" {
 
-  bucket = "${var.avtx_controller_bucket}"
+  bucket = var.avtx_controller_bucket
   acl    = "private"
   force_destroy = true
 

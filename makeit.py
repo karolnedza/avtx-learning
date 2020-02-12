@@ -62,22 +62,22 @@ def s3_bucket():
         hash = hashlib.md5(bytes).hexdigest();
         vars.close()
 
-    variables_main = open("variables.tf", "r")
+    #variables_main = open("variables.tf", "r")
     variables_remote = open(remotevariables, "r")
-
-    if "avtx_controller_bucket" in variables_main.read():
-        variables_main.close()
-        pass
-    else:
-        variables_main = open("variables.tf", "+a")
-        variables_main.write('\n')
-        variables_main.write('variable "avtx_controller_bucket" { \n')
-        variables_main.write('    default = "' + hash + '"\n')
-        variables_main.write('}\n')
-        variables_main.write('variable "avtx_dynamodb_table" { \n')
-        variables_main.write('    default = "' + hash + '"\n')
-        variables_main.write('}\n')
-        variables_main.close()
+    #
+    # if "avtx_controller_bucket" in variables_main.read():
+    #     variables_main.close()
+    #     pass
+    # else:
+    #     variables_main = open("variables.tf", "+a")
+    #     variables_main.write('\n')
+    #     variables_main.write('variable "avtx_controller_bucket" { \n')
+    #     variables_main.write('    default = "' + hash + '"\n')
+    #     variables_main.write('}\n')
+    #     variables_main.write('variable "avtx_dynamodb_table" { \n')
+    #     variables_main.write('    default = "' + hash + '"\n')
+    #     variables_main.write('}\n')
+    #     variables_main.close()
 
     if "avtx_controller_bucket" in variables_remote.read():
         variables_remote.close()

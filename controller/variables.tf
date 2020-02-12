@@ -7,5 +7,12 @@ variable "account_name" {
 }
 
 variable "account_email" {
-  default = "xxx@aviatrix.com"
+  default = "lab.aviatrix@gmail.com"
+}
+variable "awsaccesskey" {
+        type = string
+}
+
+variable "awssecretkey" {
+        type = string
 }

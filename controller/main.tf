@@ -1,11 +1,21 @@
 terraform {
-  backend "local" {
-    path = "controller.tfstate"
+  backend "s3" {
+    key    = "controller.tfstate"
+    region = "us-east-1"
   }
 }
 
+# terraform {
+#   backend "local" {
+#     path = "controller.tfstate"
+#   }
+# }
+
+
 provider "aws" {
   region     = "us-east-1"
+  access_key = var.awsaccesskey
+  secret_key = var.awssecretkey
 }
 
 data "aws_caller_identity" "current" {}

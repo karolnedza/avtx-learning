@@ -42,8 +42,9 @@ remotevariables = str(os.getcwd())+"/remotestate/variables.tf"
 
 def add_keys():
 
-    with open("terraform.tfvars.json") as file:
-        return json.load(file)
+    def load_keys():
+        with open("terraform.tfvars.json") as file:
+            return json.load(file)
 
     keys = load_keys()
     aws_access_key=keys['awsaccesskey']
@@ -51,7 +52,8 @@ def add_keys():
 
     access_key = '\"' + str(aws_access_key) + '\"'
     secret_key = '\"' + str(aws_secret_access) + '\"'
-
+    print(access_key)
+    print(secret_key)
     ctrl_main  = open(workdir_ctrl_main, "rt")
     data = ctrl_main.read()
     data = data.replace('aws_access_key', access_key )
@@ -61,6 +63,9 @@ def add_keys():
     ctrl_main = open(workdir_ctrl_main, "wt")
     ctrl_main.write(data)
     ctrl_main.close()
+
+
+add_keys()
 
 
 ########Function to create a unique name for S3 bucket ######

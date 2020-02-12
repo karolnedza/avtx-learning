@@ -23,12 +23,44 @@ requests_log.propagate = True
 ### Setting OS variables
 
 workdir_ctrl = str(os.getcwd())+"/controller" # controller main.tf
+workdir_ctrl_main = str(os.getcwd())+"/controller/main.tf"
 workdir_net = str(os.getcwd()) # network main.tf
 tfvars = str(os.getcwd())+"/terraform.tfvars.json"
 
 
 remotestate_dic = str(os.getcwd())+"/remotestate"
 remotevariables = str(os.getcwd())+"/remotestate/variables.tf"
+
+
+
+
+
+
+
+############ Preparing remote-state credentials
+
+
+def add_keys():
+
+    with open("terraform.tfvars.json") as file:
+        return json.load(file)
+
+    keys = load_keys()
+    aws_access_key=keys['awsaccesskey']
+    aws_secret_access=keys['awssecretkey']
+
+    access_key = '\"' + str(aws_access_key) + '\"'
+    secret_key = '\"' + str(aws_secret_access) + '\"'
+
+    ctrl_main  = open(workdir_ctrl_main, "rt")
+    data = ctrl_main.read()
+    data = data.replace('aws_access_key', access_key )
+    data = data.replace('aws_secret_key', secret_key)
+    ctrl_main.close()
+
+    ctrl_main = open(workdir_ctrl_main, "wt")
+    ctrl_main.write(data)
+    ctrl_main.close()
 
 
 ########Function to create a unique name for S3 bucket ######

@@ -20,7 +20,3 @@ variable "awsaccesskey" {
 variable "awssecretkey" {
         type = string
 }
-
-variable "avtx_controller_bucket" { 
-    default = "e52e25bc602498b5fda4f87fc126dbc4"
-}

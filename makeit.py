@@ -57,12 +57,12 @@ def s3_bucket():
         pass
     else:
         variables_main = open("variables.tf", "+a")
-        vvariables_main.write('\n')
+        variables_main.write('\n')
         variables_main.write('variable "avtx_controller_bucket" { \n')
         variables_main.write('    default = "' + hash + '"\n')
         variables_main.write('}\n')
         variables_main.write('variable "avtx_dynamodb_table" { \n')
-        vvariables_main.write('    default = "' + hash + '"\n')
+        variables_main.write('    default = "' + hash + '"\n')
         variables_main.write('}\n')
         variables_main.close()
 

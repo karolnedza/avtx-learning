@@ -2,6 +2,7 @@ terraform {
   backend "s3" {
     key    = "controller.tfstate"
     region = "us-east-1"
+
   }
 }
 
@@ -41,7 +42,6 @@ module "aviatrix-controller-initialize" {
   public_ip           = module.aviatrix-controller-build.public_ip
   access_account_name = var.account_name
   aws_account_id      = data.aws_caller_identity.current.account_id
-  customer_license_id = "carmelodev-1393702544.64"
 }
 
 output "result" {
